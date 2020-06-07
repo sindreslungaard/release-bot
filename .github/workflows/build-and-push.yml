@@ -15,6 +15,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.REGISTRY_TOKEN }}
           registry: docker.pkg.github.com
-          repository: sindreslungaard/release-bot/production
+          repository: sindreslungaard/release-bot/release-bot
           tags: latest
 

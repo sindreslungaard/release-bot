@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 // Release holds data from the releases response
@@ -64,6 +65,9 @@ func main() {
 			http.Error(w, "Wrong secret", http.StatusForbidden)
 			return
 		}
+
+		// Wait 5 seconds to make sure github's api is up to date
+		time.Sleep(time.Second * 5)
 
 		// Get releases
 		releasesRes, err := http.Get("https://api.github.com/repos/" + owner + "/" + repo + "/releases")

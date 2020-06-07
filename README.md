@@ -16,7 +16,7 @@ docker run -d \
     -e github_owner=<github_owner> \
     -e github_repo=<github_repo> \
     -e webhook=<webhook_url> \
-    docker.pkg.github.com/sindreslungaard/duel-masters/production:latest
+    docker.pkg.github.com/sindreslungaard/release-bot/release-bot:latest
 
 In your repository settings, create a webhook for releases and point it to yourdomain.com/github/release?secret=<your_secret>
 ```

@@ -15,6 +15,11 @@ type Release struct {
 	Tag string `json:"tag_name"`
 }
 
+// ReleaseEvent holds data from the github release webhook payload
+type ReleaseEvent struct {
+	Action string `json:"action"`
+}
+
 // Diff holds data from the compare response
 type Diff struct {
 	Commits []struct {
@@ -63,6 +68,20 @@ func main() {
 
 		if secrets[0] != secret {
 			http.Error(w, "Wrong secret", http.StatusForbidden)
+			return
+		}
+
+		var releaseEvent ReleaseEvent
+
+		err := json.NewDecoder(r.Body).Decode(&releaseEvent)
+
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		if releaseEvent.Action != "published" {
+			http.Error(w, "Action must be published", http.StatusBadRequest)
 			return
 		}
 

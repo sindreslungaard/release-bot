@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -125,7 +126,12 @@ func main() {
 		message := "**" + releases[0].Tag + " release**\n```"
 
 		for _, c := range diff.Commits {
-			message += "\n• " + c.Commit.Message
+
+			commit := strings.Split(c.Commit.Message, "\n")
+			if len(commit) > 0 {
+				message += "\n• " + commit[0]
+			}
+
 		}
 
 		message += "\n```"
